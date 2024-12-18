@@ -47,6 +47,12 @@ pkgver() {
 }
 
 build() {
+	# Remove -fno-plt from compiler flags
+	CFLAGS="${CFLAGS/-fno-plt/}"
+
+	# Remove -z,now from linker flags
+	LDFLAGS="${LDFLAGS/-Wl,-z,now/}"
+
 	# shellcheck disable=SC2154
 	local cmake_args=(
 		-Wno-dev
