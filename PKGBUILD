@@ -47,6 +47,10 @@ pkgver() {
 }
 
 build() {
+	# Without these, the core won't load with `undefined symbol: strlcat_retro__`
+	# See https://bugs.archlinux.org/task/55128
+	CFLAGS="$CFLAGS -ffat-lto-objects"
+
 	# shellcheck disable=SC2154
 	local cmake_args=(
 		-Wno-dev
