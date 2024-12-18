@@ -48,22 +48,27 @@ pkgver() {
 
 build() {
 	# shellcheck disable=SC2154
-	cmake -S $_pkgname -B build \
-		-DCMAKE_BUILD_TYPE=Release \
-		-DCMAKE_C_FLAGS_RELEASE="-DNDEBUG" \
-		-DCMAKE_CXX_FLAGS_RELEASE="-DNDEBUG" \
-		-DDATE_REPOSITORY_URL="$srcdir"/date \
-		-DEMBED_BINARIES_REPOSITORY_URL="$srcdir"/embed-binaries \
-		-DFMT_REPOSITORY_URL="$srcdir"/fmt \
-		-DGLM_REPOSITORY_URL="$srcdir"/glm \
-		-DLIBRETRO_COMMON_REPOSITORY_URL="$srcdir"/libretro-common \
-		-DLIBSLIRP_REPOSITORY_URL="$srcdir"/libslirp \
-		-DMELONDS_REPOSITORY_URL="$srcdir"/melonDS \
-		-DPNTR_REPOSITORY_URL="$srcdir"/pntr \
-		-DSPAN_LITE_REPOSITORY_URL="$srcdir"/span-lite \
-		-DYAMC_REPOSITORY_URL="$srcdir"/yamc \
-		-DZLIB_REPOSITORY_URL="$srcdir"/zlib \
+	local cmake_args=(
 		-Wno-dev
+		-S "$_pkgname"
+		-B build
+		-D CMAKE_BUILD_TYPE=Release
+		-D CMAKE_C_FLAGS_RELEASE="-DNDEBUG"
+		-D CMAKE_CXX_FLAGS_RELEASE="-DNDEBUG"
+		# fetch_dependency overrides
+		-D DATE_REPOSITORY_URL="$srcdir"/date
+		-D EMBED_BINARIES_REPOSITORY_URL="$srcdir"/embed-binaries
+		-D FMT_REPOSITORY_URL="$srcdir"/fmt
+		-D GLM_REPOSITORY_URL="$srcdir"/glm
+		-D LIBRETRO_COMMON_REPOSITORY_URL="$srcdir"/libretro-common
+		-D LIBSLIRP_REPOSITORY_URL="$srcdir"/libslirp
+		-D MELONDS_REPOSITORY_URL="$srcdir"/melonDS
+		-D PNTR_REPOSITORY_URL="$srcdir"/pntr
+		-D SPAN_LITE_REPOSITORY_URL="$srcdir"/span-lite
+		-D YAMC_REPOSITORY_URL="$srcdir"/yamc
+		-D ZLIB_REPOSITORY_URL="$srcdir"/zlib
+	)
+	cmake "${cmake_args[@]}"
 	cmake --build build
 }
 
