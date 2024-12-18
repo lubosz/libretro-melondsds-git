@@ -1,7 +1,7 @@
 # Maintainer: Alexandre Bouvier <contact@amb.tf>
 _pkgname=libretro-melondsds
 pkgname=$_pkgname-git
-pkgver=1.0.1.r0.g949bb4d
+pkgver=1.1.8.r0.g08862a8
 pkgrel=1
 pkgdesc="Nintendo DS core"
 arch=('aarch64' 'armv7h' 'i486' 'i686' 'pentium4' 'x86_64')
